@@ -1,10 +1,27 @@
-import { useState } from "react";
+import React from "react";
+import { useState, useContext, useEffect } from "react";
+import { MovieContext } from "../../contexts/movies.context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./movieSearch.css";
+import "./movieSearch.style.css";
 
 const MovieSearch = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const { selectedMovie, setSelectedMovie } = useContext(MovieContext);
+
+  useEffect(() => {
+    if (Object.keys(selectedMovie).length !== 0) {
+      console.log(selectedMovie);
+    }
+  }, [selectedMovie]);
+
+  const handleClick = (movie) => {
+    setSelectedMovie(movie);
+    navigate("/movie");
+  };
+
   var results = [];
 
   const API_KEY = "b27d49c0";
@@ -56,9 +73,13 @@ const MovieSearch = () => {
             <h2>Recommended Movies : </h2>
             <ul className="movies-list">
               {searchResults.slice(0, 8).map((movie) => (
-                <li key={movie.imdbID} className="movies">
+                <li
+                  key={movie.imdbID}
+                  className="movies"
+                  onClick={() => handleClick(movie)}
+                >
                   <h1>{movie.Title}</h1>
-                  <img src={movie.Poster} />
+                  <img src={movie.Poster} alt={movie.Title} />
                   <p>{movie.Year}</p>
                   <p>{movie.Genre}</p>
                 </li>
