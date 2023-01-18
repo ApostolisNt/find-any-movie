@@ -1,3 +1,5 @@
+This project is a movie search app that allows users to search for movies using the OMDB API. It's built with React and hooks for state management and navigation. It makes GET request to the OMDB API and displays the search results. Users can also select a movie to view more information. It also has a context to handle the selected movie.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
